@@ -1,6 +1,6 @@
 const express = require("express");
 const { User } = require("../db/database");
-const { resolveSoa } = require("dns");
+
 
 function userauth(req,res,next){
     const username = req.headers.username;

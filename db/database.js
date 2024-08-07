@@ -15,14 +15,17 @@ const Admin = mongoose.model("Admin",AdminSchema)
 const UserSchema = new schema({
     username:String,
     password:String,
-    CoursesPurchased: Array
+    CoursesPurchased: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Courses"
+    }
+    ]
 })
 
 const User = mongoose.model("User",UserSchema)
 
 //defining the schema of courses and making a model of it
 const CourseSchema = new schema({
-    courseId : Number,
     title: String,
     description : String,
     price: Number,

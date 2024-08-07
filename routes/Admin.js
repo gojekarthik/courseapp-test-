@@ -32,9 +32,7 @@ routes.post("/admin/signup",async function(req,res,){
 
 
 routes.post("/admin/courses", adminauth , function(req,res){
-    coursecount++
     const newcourse = new Courses({
-        courseId : coursecount,
         title: req.body.title,
         description: req.body.discription,
         price: req.body.price,

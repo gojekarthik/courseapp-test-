@@ -31,12 +31,31 @@ routes.post("/user/signup",async function(req,res,){
         res.json(coursedata)
     })
 
-    routes.post("/user/courses/:id" , userauth , function(req,res){
-        const values = req.params
-        res.json({
-            values
+    routes.post("/user/courses/:id" , userauth , async function(req,res){
+        const id = req.params.id
+        const username = req.headers.username
+        await User.updateOne({username:username},{
+            "$push":{
+                CoursesPurchased:id
+            }
         })
+        res.send("course has been purchased")
     })
+
+    routes.get("/user/purchasedCourses", userauth , async function(req,res){
+            const username = req.headers.username
+            const data = await User.find({username:username})
+            console.log(data[0].CoursesPurchased)
+            const courses = await Courses.find({
+                 _id : {
+                    "$in" : data[0].CoursesPurchased    
+                }
+            })
+            console.log(courses)
+            res.send("testing")
+        })
+        
+
 
 
 
